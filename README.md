@@ -73,9 +73,10 @@ The project is designed to run on **Google Colab** with a GPU runtime.
    (`Runtime` → `Change runtime type` → `Hardware accelerator: GPU`).
 3. For Cuda to run on google colab you must run :
    ```bash
-    !nvcc -O3 -arch=sm_75 --use_fast_math cc_cuda.cu converter.o mmio.o -o test
+    !apt-get update -qq
+    !apt-get install -y -qq nvidia-cuda-toolkit
+    !nvcc --version
     ```
-!./test /content/drive/MyDrive/cuda_project/com-Orkut.mtx
 4. Mount Google Drive:
 
    ```python
