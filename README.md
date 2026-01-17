@@ -71,13 +71,18 @@ The project is designed to run on **Google Colab** with a GPU runtime.
 1. Open a Colab notebook.
 2. Change the runtime type to **GPU**  
    (`Runtime` → `Change runtime type` → `Hardware accelerator: GPU`).
-3. Mount Google Drive:
+3. For Cuda to run on google colab you must run :
+   ```bash
+    !nvcc -O3 -arch=sm_75 --use_fast_math cc_cuda.cu converter.o mmio.o -o test
+    ```
+!./test /content/drive/MyDrive/cuda_project/com-Orkut.mtx
+4. Mount Google Drive:
 
    ```python
    from google.colab import drive
    drive.mount('/content/drive')
 
-4. Place your project under (for example):
+5. Place your project under (for example):
 
     ```bash
     /content/drive/MyDrive/cuda_project/
@@ -92,6 +97,7 @@ mmio.c
 mmio.h
 com-Orkut.mtx           # and/or other .mtx graphs
 ```
+
 ## Compilation and Execution
 
 After you have connected to your Drive and changed to the project folder, you
@@ -100,11 +106,7 @@ can compile and run like this :
 ```bash
 %cd /content/drive/MyDrive/cuda_project/
 
-# Compile helper code once
-!nvcc -c converter.c -o converter.o
-!nvcc -c mmio.c      -o mmio.o
-
-# Compile the CUDA CC code
+#To compile
 !nvcc -O3 -arch=sm_75 --use_fast_math cc_cuda.cu converter.o mmio.o -o test
 
 # Run on a specific graph (example: com-Orkut)
